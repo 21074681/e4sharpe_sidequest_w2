@@ -15,24 +15,24 @@ let blob3 = {
 
   // Time values for breathing animation
   t: 0,
-  tSpeed: 0.01,
+  tSpeed: 0.012,
 
   // Physics: velocity
   vx: 0, // Horizontal velocity
   vy: 0, // Vertical velocity
 
   // Movement tuning
-  accel: 0.55, // Horizontal acceleration
-  maxRun: 4.0, // Maximum horizontal speed
-  gravity: 0.65, // Downward force
-  jumpV: -11.0, // Initial jump impulse
+  accel: 0.7,
+  maxRun: 4.8,
+  gravity: 0.45, // Downward force
+  jumpV: -12.5, // Initial jump impulse
 
   // State
   onGround: false, // True when standing on a platform
 
   // Friction
-  frictionAir: 0.995, // Light friction in air
-  frictionGround: 0.88, // Stronger friction on ground
+  frictionGround: 0.92,
+  frictionAir: 0.998,
 };
 
 // List of solid platforms the blob can stand on
@@ -63,12 +63,12 @@ function setup() {
 }
 
 function draw() {
-  background(240);
+  background(210, 235, 255); // calm happy sky
 
   // --- Draw all platforms ---
-  fill(200);
+  fill(255, 210, 160); // happy warm platforms
   for (const p of platforms) {
-    rect(p.x, p.y, p.w, p.h);
+    rect(p.x, p.y, p.w, p.h, 6);
   }
 
   // --- Input: left/right movement ---
@@ -118,7 +118,7 @@ function draw() {
       if (blob3.vy > 0) {
         // Falling → land on top of a platform
         box.y = s.y - box.h;
-        blob3.vy = 0;
+        blob3.vy = -2.2;
         blob3.onGround = true;
       } else if (blob3.vy < 0) {
         // Rising → hit the underside of a platform
@@ -126,6 +126,10 @@ function draw() {
         blob3.vy = 0;
       }
     }
+  }
+
+  if (blob3.onGround && abs(blob3.vx) < 0.1) {
+    blob3.y += sin(frameCount * 0.1) * 0.3;
   }
 
   // --- Convert collision box back to blob centre ---
@@ -154,8 +158,10 @@ function overlap(a, b) {
 
 // Draws the blob using Perlin noise for a soft, breathing effect
 function drawBlobCircle(b) {
-  fill(20, 120, 255);
+  fill(255, 170, 200); // happy pink
   beginShape();
+
+  const stretch = b.onGround ? 1.08 : 0.95;
 
   for (let i = 0; i < b.points; i++) {
     const a = (i / b.points) * TAU;
@@ -167,7 +173,7 @@ function drawBlobCircle(b) {
       b.t,
     );
 
-    const r = b.r + map(n, 0, 1, -b.wobble, b.wobble);
+    const r = b.r * stretch + map(n, 0, 1, -b.wobble, b.wobble);
 
     vertex(b.x + cos(a) * r, b.y + sin(a) * r);
   }
