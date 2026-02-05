@@ -8,11 +8,12 @@ GBDA302 Week : The joyfully hyper blob
 
 Emily Sharpe
 21074681
+
 ---
 
 ## Description
 
-There are several jumping points built as rectangles for the blob to job from 1 to the other or off of. The blob is drawn as a joyfull and hyper circle, this blob jumps high and gracefully. It almost is like its skipping on the platforms and in the air. The hyper movement shows a level of excitment similar to an excited child waiting for candy. 
+There are several jumping points built as rectangles for the blob to job from 1 to the other or off of. The blob is drawn as a joyfull and hyper circle, this blob jumps high and gracefully. It almost is like its skipping on the platforms and in the air. The hyper movement shows a level of excitment similar to an excited child waiting for candy.
 
 ---
 
